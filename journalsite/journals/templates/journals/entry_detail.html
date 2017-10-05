@@ -1,0 +1,62 @@
+{% extends "journals/entry_base.html" %}
+
+{% block preentry %}
+
+
+{#<h1>{{entry.journal.name}}</h1>#}
+{#<h2>Member Count:{{journal.members.count}}</h2>#}
+{#  journal = models.ForeignKey(Journal, on_delete=models.CASCADE)#}
+{#    title_text = models.CharField('entry title', max_length=200)#}
+{#    body_text = models.CharField('entry body', max_length=200)#}
+{#    published_date = models.DateTimeField('published date', default= timezone.now)#}
+{#    hidden_boolean = models.BooleanField('hidden', default=False)#}
+{#    deleted_boolean = models.BooleanField('deleted', default=False)#}
+{#    orginal_id = models.IntegerField('orginal entry id', null= True)#}
+
+<div class="container">
+<table class="table">
+    <thead>
+    <tr class ="info">
+        <th>Entry Name</th>
+        <th>Entry Description</th>
+        <th>Created Data</th>
+        <th>IS Hidden</th>
+        <th>IS DELETED</th>
+{#        <th>EDIT HISTORY</th>#}
+    </tr>
+
+    </thead>
+    <tbody>
+    <tr>
+        <td><a></a>{{ entry.title_text }}</td>
+        <td>{{ entry.body_text }}</td>
+        <td>{{ entry.published_date }}</td>
+        <td>{{ entry.hidden_boolean }}</td>
+        <td>{{ entry.deleted_boolean }}</td>
+{#        <td>{{ journal.created_date }}</td>#}
+    </tr>
+    </tbody>
+
+</table>
+
+
+{##}
+{#		<strong>{{ journal.user.username }}</strong>#}
+{##}
+{#	    <h1>Journal Name:</h1>#}
+{#        <h1>{{ journal.name_text }}</h1>#}
+{#        <h1>Journal Description:</h1>#}
+{#        <h1>{{ journal.description_text }}</h1>#}
+    <div class="media-footer">
+			{% if user.is_authenticated%}
+
+                <a class="btn btn-primary" href="{% url 'journals:entry_update' pk=entry.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn btn-primary" href="{% url 'journals:entry_remove' pk=entry.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+
+{#				<a href="{% url 'journals:entry_edit' pk=journal.pk %}" title="delete" class="btn btn-simple">#}
+
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "journals/journal_base.html" %}
+
+{% block pregroup %}
+    <div class="container">
+<table class="table">
+    <thead>
+    <tr class ="info">
+        <th>Journal Name</th>
+        <th>Journal Description</th>
+        <th>Created Data</th>
+        <th>Manage</th>
+    </tr>
+
+    </thead>
+    <tbody >
+    {% for journal in object_list  %}
+    <tr>
+        <td><a href="{% url 'journals:entry_list' pk=journal.id %}">{{ journal.name_text }}</a></td>
+        <td>{{ journal.description_text }}</td>
+        <td>{{ journal.created_date }}</td>
+        <td>
+
+            <a class="btn btn-primary" href="{% url 'journals:edit' pk=journal.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-primary" href="{% url 'journals:delete' pk=journal.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+        </td>
+
+
+
+    </tr>
+        {% empty %}
+    <li>No articles yet.</li>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+
+{##}
+{#		<strong>{{ journal.user.username }}</strong>#}
+{##}
+{#	    <h1>Journal Name:</h1>#}
+{#        <h1>{{ journal.name_text }}</h1>#}
+{#        <h1>Journal Description:</h1>#}
+{#        <h1>{{ journal.description_text }}</h1>#}
+
+</div>
+
+{% endblock %}

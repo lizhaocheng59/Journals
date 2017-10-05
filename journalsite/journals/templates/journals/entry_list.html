@@ -1,0 +1,87 @@
+{% extends "journals/entry_base.html" %}
+
+{% block preentry %}
+
+<h1>Entry List</h1>
+    <div class="container">
+
+
+    <form action="{% url 'journals:entry_search' %}" method="get">
+                {% csrf_token %}
+                    Search Content:
+                    <input type="text" name="content">
+                    Date:
+                    <input type="date" name="date">
+                    From:
+                    <input type="date" name="start_date">
+                    To:
+                    <input type="date" name="end_date">
+                    <input type="hidden" name="journal_id" value={{ gournal_id }}>
+                    <input type="submit" value="Search" class="btn btn-primary btn-large">
+    </form>
+    </br>
+    {% if object_list.content == 0 %}
+        <li>No Entries yet.</li>
+    {% else %}
+
+<table class="table">
+    <thead>
+    <tr class ="info">
+        <th>Entry Name</th>
+        <th>Entry Description</th>
+        <th>Entry Data</th>
+        <th>Entry Log</th>
+        <th>Hide Entry</th>
+
+    </tr>
+
+    </thead>
+    <tbody>
+    {% for entry in object_list  %}
+    <tr>
+        <td><a href="{% url 'journals:entry_detail' entry.title_text entry.id %}">{{ entry.title_text }}</a></td>
+        <td>{{ entry.body_text }}</td>
+        <td>{{ entry.published_date }}</td>
+
+        <td><a href="{% url 'journals:entry_log' orginal_entry=entry.orginal_entry %}" class="btn btn-md btn-fill btn-warning"><span class="glyphicon glyphicon-plus-sign"></span> Entry Log</a></td>
+        {% if entry.hidden_boolean %}
+            <td><a href="{% url 'journals:entry_hide' pk=entry.id %}" class="btn btn-md btn-fill btn-warning"></span> Invisible Entry</a></td>
+        {% else %}
+            <td><a href="{% url 'journals:entry_hide' pk=entry.id %}" class="btn btn-md btn-fill btn-info"></span> Visible Entry</a></td>
+        {% endif %}
+
+    </tr>
+        {% empty %}
+    <tr>
+{#"journals:entry_log", kwargs={"orginal_entry":entry.orginal_entry})#}
+        <td>No Entries!!</td>
+
+    </tr>
+
+
+    {% endfor %}
+    </tbody>
+
+</table>
+{% endif %}
+    <a href="{% url 'journals:entry_create' pk=gournal_id %}" class="btn btn-md btn-fill btn-warning"><span class="glyphicon glyphicon-plus-sign"></span> Create New Entry!</a>
+    <a href="{% url 'journals:entry_list' pk=gournal_id %}" class="btn btn-md btn-fill btn-warning"><span class="glyphicon glyphicon-plus-sign"></span> Active Entry</a>
+     <a href="{% url 'journals:entry_list_all' pk=gournal_id %}" class="btn btn-md btn-fill btn-warning"><span class="glyphicon glyphicon-plus-sign"></span> All Entry</a>
+{# journal = models.ForeignKey(Journal, on_delete=models.CASCADE)#}
+{#    title_text = models.CharField('entry title', max_length=200)#}
+{#    body_text = models.CharField('entry body', max_length=200)#}
+{#    published_date = models.DateTimeField('published date', default= timezone.now)#}
+{#    hidden_boolean = models.BooleanField('hidden', default=False)#}
+{#    deleted_boolean = models.BooleanField('deleted', default=False)#}
+{#    orginal_id = models.IntegerField('orginal entry id', null= True)#}
+{##}
+{#		<strong>{{ journal.user.username }}</strong>#}
+{##}
+{#	    <h1>Journal Name:</h1>#}
+{#        <h1>{{ journal.name_text }}</h1>#}
+{#        <h1>Journal Description:</h1>#}
+{#        <h1>{{ journal.description_text }}</h1>#}
+
+</div>
+
+{% endblock %}

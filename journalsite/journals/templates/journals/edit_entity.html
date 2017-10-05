@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Add Entry</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Edit an Entry</h1>
+            <div style="text-align: right;">
+                <a class="btn btn-default" href="{% url 'journals:journals' %}">Back</a>
+            </div>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+            <form action="{% url 'journals:entry_edit_confirm' journal_id entry.id%}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Title:</label>
+                    <input type="text" class="form-control" name="name" value="{{ entry.title_text }}">
+                </div>
+                <div class="form-group">
+                    <label for="description">Body:</label>
+                    <textarea   class="form-control" name="description" >{{ entry.body_text }}</textarea>
+                </div>
+                <input type="submit" class="btn btn-default" value="Submit"></input>
+            </form>
+        </div>
+    </body>
+</html>

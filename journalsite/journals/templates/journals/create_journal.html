@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Create Journal</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Create a Journal</h1>
+            <div style="text-align: right;">
+                <a class="btn btn-default" href="{% url 'journals:journals' %}">Back</a>
+            </div>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+            <form action="{% url 'journals:journals_create_confirm' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Journal name:</label>
+                    <input type="text" class="form-control" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" name="description"></textarea>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+{% extends "journals/entry_base.html" %}
+
+{% block preentry %}
+
+    <div class="container">
+<h1>Entry Log</h1>
+{# <li><a href="{% url 'journals:entity_create' pk=gournal_id %}" class="btn btn-md btn-fill btn-warning"><span class="glyphicon glyphicon-plus-sign"></span> Create New Entry!{{ gournal_id }}</a></li>#}
+<table class="table">
+    <thead>
+    <tr class ="info">
+        <th>Entry Name</th>
+        <th>Entry Description</th>
+        <th>Entry Data</th>
+        <th>Replace</th>
+    </tr>
+
+    </thead>
+    <tbody>
+    {% for entry in object_list  %}
+    <tr>
+        <td><a href="{% url 'journals:entry_update' entry.id %}">{{ entry.title_text }}</a></td>
+        <td>{{ entry.body_text }}</td>
+        <td>{{ entry.published_date }}</td>
+        {% if entry.is_available %}
+{#            disable the menu#}
+             <td><a href="#"
+               class="btn btn-md btn-fill btn-info">Current Entry</a></td>
+        {% else %}
+             <td><a href="{% url 'journals:entry_replace' pk=entry.id orginal_entry_index=entry.orginal_entry%}"
+               class="btn btn-md btn-fill btn-warning">Replace Entry</a></td>
+        {% endif %}
+
+
+    </tr>
+        {% empty %}
+    <li>No Entries yet.</li>
+
+    {% endfor %}
+    </tbody>
+
+</table>
+
+{# journal = models.ForeignKey(Journal, on_delete=models.CASCADE)#}
+{#    title_text = models.CharField('entry title', max_length=200)#}
+{#    body_text = models.CharField('entry body', max_length=200)#}
+{#    published_date = models.DateTimeField('published date', default= timezone.now)#}
+{#    hidden_boolean = models.BooleanField('hidden', default=False)#}
+{#    deleted_boolean = models.BooleanField('deleted', default=False)#}
+{#    orginal_id = models.IntegerField('orginal entry id', null= True)#}
+{##}
+{#		<strong>{{ journal.user.username }}</strong>#}
+{##}
+{#	    <h1>Journal Name:</h1>#}
+{#        <h1>{{ journal.name_text }}</h1>#}
+{#        <h1>Journal Description:</h1>#}
+{#        <h1>{{ journal.description_text }}</h1>#}
+
+</div>
+
+{% endblock %}

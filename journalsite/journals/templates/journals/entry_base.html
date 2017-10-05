@@ -1,0 +1,12 @@
+{% extends "journals/base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    {% block preentry %}{% endblock %}
+    {% block entry_content %}{% endblock %}
+    {% block postentry %}{% endblock %}
+  </div>
+</div>
+
+{% endblock %}

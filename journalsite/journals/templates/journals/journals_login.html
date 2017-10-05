@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Login</title>
+</head>
+<body>
+	<h1 align="left"><a href = "Homepage.html">My Journal</a></h1>
+	<hr width= "100%" color="black"/>
+	<h1 style="text-align: center">Log In</h1>
+	<form method="post" action="{% url 'journals:journal_login_confirm' %}">
+         {% csrf_token %}
+	<table align="center">
+		<tr>
+		<td style="text-align: center">Email Address</td>
+		<td style="text-align: center"><input type="email" name="email"></td>
+		</tr>
+		<tr>
+		<td style="text-align: center">Password</td>
+		<td style="text-align: center"><input type="password" name="password"></td>
+		</tr>
+		<tr>
+		<td style="text-align: center"><input type="submit" value="Login"></td>
+		<td style="text-align: center"><input type="button" value="Cancel" onclick="history.go(-1);return true;"></td>
+		</tr>
+		<tr>
+		<td style="text-align: center"><a href = "{% url 'journals:journal_register' %}">New users?</a></td>
+		</tr>
+		<tr>
+		<td style="text-align: center"><a href = "CheckTheName.html">Forget Password?</a></td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>
